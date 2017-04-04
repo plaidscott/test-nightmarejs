@@ -1,34 +1,38 @@
 var Nightmare = require('nightmare');
 require('nightmare-upload')(Nightmare);
-var nightmare = Nightmare({ show: true});
+
+let userInfo = require('secret');
+
+var nightmare = Nightmare({show: true});
+
 
 nightmare
-    .goto('https://www.ksl.com/public/member/signin?login_forward=%2Fmyaccount%2Flisting-classified')
-    .insert('#memberemail', 'plaidscott@gmail.com')
-    .insert('#memberpassword', 'milamber08')
+    .goto('https://www.ksl.com/public/member/signin?login_forward=%2Fclassifieds%2Fsell')
+    .type('#memberemail', userInfo.userEmail)
+    .type('#memberpassword', userInfo.userPass)
     .click('.continue')
-    .goto('https://www.ksl.com/classifieds/sell')
+    .wait(2000)
     .select('#category-input', 'Electronics')
     .select('#subCategory-input', 'Cell Phones Verizon')
     .insert('#title-input', 'Verizon Basic Phone, no contract')
     .insert('#price-input', '30.00')
     .select('#marketType-input', 'Sale')
-    .insert('#city-input', 'Salt Lake City')
-    .select('#state-input', 'Utah')
+    // .insert('#city-input', 'Salt Lake City')
+    .select('#state-input', 'UT')
     .insert('#description-input', 'Awesome working phones, perfect for the thrifty and budget conscious call 801-857-7898, ask for Scott')
     .select('#sellerType-input', 'Private')
-    .insert('#name-input', 'Scott Schermerhorn')
-    .insert('#primaryPhone-input', '801-857-7898')
+    // .insert('#name-input', 'Scott Schermerhorn')
+    // .insert('#primaryPhone-input', '801-857-7898')
     .check('#acceptText-input')
-    .insert('#email-input', 'plaidscott@gmail.com')
-    // .upload('.upload-drop-area', 'lgSlider.jpg')
+    // .click('div#photoUploadContainer > div.uploader:nth-child(2) > div.upload-drop-area:nth-child(1) > span.add-photo-button.upload-button-hover.upload-button-focus:nth-child(2) > input:nth-child(3)')
+    .wait(5000)
     .check('#acceptTermsConditions-input')
-    .wait(1000)
+    .wait(5000)
     .click('.continue-button')
-    .wait(1000)
-    .click('.post-listing-button')
-    .wait(1000)
-    .evaluate(function() {
+    .wait(5000)
+    // .click('.post-listing-button')
+    // .wait(5000)
+    .evaluate(() => {
         return document.title;
     })
     .end()
@@ -38,3 +42,4 @@ nightmare
     .catch(function(err) {
         console.log('err', err);
     })
+
