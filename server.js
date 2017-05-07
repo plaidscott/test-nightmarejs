@@ -1,21 +1,21 @@
 var Nightmare = require('nightmare');
 require('nightmare-upload')(Nightmare);
 
-let userInfo = require('secret');
+var userInfo = require('./secret');
 
 var nightmare = Nightmare({show: true});
 
 
 nightmare
     .goto('https://www.ksl.com/public/member/signin?login_forward=%2Fclassifieds%2Fsell')
-    .type('#memberemail', userInfo.userEmail)
-    .type('#memberpassword', userInfo.userPass)
+    .type('#memberemail', 'plaidscott@gmail.com')
+    .type('#memberpassword', 'milamber08')
     .click('.continue')
     .wait(2000)
     .select('#category-input', 'Electronics')
     .select('#subCategory-input', 'Cell Phones Verizon')
     .insert('#title-input', 'Verizon Basic Phone, no contract')
-    .insert('#price-input', '30.00')
+    .insert('#price-input', '45.00')
     .select('#marketType-input', 'Sale')
     // .insert('#city-input', 'Salt Lake City')
     .select('#state-input', 'UT')
@@ -41,5 +41,5 @@ nightmare
     })
     .catch(function(err) {
         console.log('err', err);
-    })
+    });
 
